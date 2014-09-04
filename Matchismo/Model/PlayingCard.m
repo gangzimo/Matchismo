@@ -31,7 +31,7 @@
 }
 
 + (NSUInteger)maxRank {
-    return [[PlayingCard rankStrings] count];
+    return [[PlayingCard rankStrings] count] - 1;
 }
 
 + (NSArray *)rankStrings {
