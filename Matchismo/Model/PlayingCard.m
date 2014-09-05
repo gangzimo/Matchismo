@@ -12,6 +12,34 @@
 
 @synthesize suit = _suit;
 
+- (int)match:(NSArray *)otherCards {
+    int score = 0;
+    
+    if ([otherCards count] == 1) {
+        PlayingCard *card = [otherCards firstObject];
+        if ([card.suit isEqualToString:self.suit]) {
+            score += 6;
+        } else if (card.rank == self.rank) {
+            score += 12;
+        }
+    } else if ([otherCards count] == 2) {
+        PlayingCard *cardOne = [otherCards firstObject];
+        PlayingCard *cardTwo = [otherCards lastObject];
+        
+        if (self.rank == cardOne.rank && cardOne.rank == cardTwo.rank) {
+            score += 32;
+        } else if ([self.suit isEqualToString:cardOne.suit] && [cardOne.suit isEqualToString:cardTwo.suit]) {
+            score += 16;
+        } else if (self.rank == cardOne.rank || cardOne.rank == cardTwo.rank || self.rank == cardTwo.rank) {
+            score += 8;
+        } else if ([self.suit isEqualToString:cardOne.suit] || [cardOne.suit isEqualToString:cardTwo.suit] || [self.suit isEqualToString:cardTwo.suit]){
+            score += 4;
+        }
+    }
+    
+    return score;
+}
+
 - (NSString *)suit {
     return _suit ? _suit : @"?";
 }
